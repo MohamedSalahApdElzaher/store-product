@@ -12,8 +12,6 @@
 - Pagination / paginating records
 - Reflection
 - Design patterns
-- Git / Github
-- Contributing to open source projects
 - Accepting payments with 3rd party payment services (e.g. Stripe)
 
 **And some of the things it MIGHT cover:**
