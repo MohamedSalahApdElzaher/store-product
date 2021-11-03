@@ -44,6 +44,43 @@ class SessionTest extends TestCase
         $this->assertArrayHasKeys($_SESSION['cart.items'], [$key2, $key1]);
     }
 
+    /** @test */
+    public function is_item_in_array()
+    {
+        $session = new Session();
+        $session->set('auth.item', 'item1');
+        $this->assertTrue($session->has('auth.item'));
+    }
+
+    /** @test */
+    public function retrive_item()
+    {
+        $session = new Session();
+        $session->set('auth.item', 50);
+        $this->assertEquals(50, $session->get('auth.item'));
+        $this->assertNull($session->get('list.item'));
+    }
+
+    /** @test */
+    public function remove_session_key()
+    {
+        $session = new Session();
+        $session->set('auth.item', 50);
+        $session->remove('auth.item');
+        $this->assertNull($session->get('auth.item'));
+    }
+
+    /** @test */
+    public function clear_all_session()
+    {
+        $session = new Session();
+        $session->set('auth.item', 50);
+        $session->set('list.item', 50);
+        $session->set('cat.item', 50);
+        $session->clear();
+        $this->assertEmpty($_SESSION);
+    }
+
     // custom method to test multiple keys
     public function assertArrayHasKeys(array $array, array $keys)
     {

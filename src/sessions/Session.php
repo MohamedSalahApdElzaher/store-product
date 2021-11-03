@@ -8,13 +8,14 @@ class Session implements SessionInterface
     // check if session started
     private $is_started = false;
 
-    public function isStarted(){
+    public function isStarted() : bool
+    {
         $this->is_started = session_status() === PHP_SESSION_ACTIVE;
         return $this->is_started;
     }
 
     // start session
-    public function start()
+    public function start() : bool
     {
         // if session running
         if($this->is_started) return true;
@@ -29,27 +30,29 @@ class Session implements SessionInterface
         return true;
     }
 
-    public function has(string $key)
+    public function has(string $key): bool
     {
-        // TODO: Implement has() method.
+        return array_key_exists($key, $_SESSION);
     }
 
-    public function get(string $key)
+    public function get(string $key, $default = null) : mixed
     {
-        // TODO: Implement get() method.
+        return $this->has($key) ? $_SESSION[$key] : $default;
     }
 
-    public function clear()
+    public function clear() : void
     {
-        // TODO: Implement clear() method.
+        $_SESSION = [];
     }
 
-    public function remove(string $key)
+    public function remove(string $key) : void
     {
-        // TODO: Implement remove() method.
+        if($this->has($key)){
+            unset($_SESSION[$key]);
+        }
     }
 
-    public function set(string $key, mixed $value)
+    public function set(string $key, mixed $value) : void
     {
         $_SESSION[$key] = $value;
     }
